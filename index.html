@@ -11,9 +11,9 @@
       --radius:14px;
     }
     *{box-sizing:border-box;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial}
-    body{margin:0;background:linear-gradient(180deg,#031026 0%, #061229 60%);color:#e6eef8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px}
+    body{margin:0;background:linear-gradient(180deg,#031026 0%, #061229 60%);color:#e6eef8;min-height:100vh;padding:20px}
 
-    .wrap{width:1100px;max-width:96%;display:grid;grid-template-columns:420px 1fr;gap:20px}
+    .wrap{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:minmax(300px, 400px) 1fr;gap:20px}
     .panel{background:linear-gradient(180deg,var(--card),#031228);border-radius:var(--radius);padding:18px;box-shadow:0 8px 40px rgba(2,6,23,0.7);border:1px solid rgba(255,255,255,0.03)}
 
     h1{font-size:18px;margin:0 0 8px 0;display:flex;align-items:center;gap:8px}
@@ -29,17 +29,18 @@
     .env .meta{flex:1}
     .env .meta small{display:block;color:var(--muted);font-size:12px}
 
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent-2),var(--accent));border:none;color:white;cursor:pointer;font-weight:700}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent-2),var(--accent));border:none;color:white;cursor:pointer;font-weight:700;font-size:14px;white-space:nowrap}
     .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
     .btn.danger{background:linear-gradient(90deg,#ef4444,#dc2626)}
     .btn.small{padding:6px 10px;font-size:12px}
+    .btn.success{background:linear-gradient(90deg,#10b981,#059669)}
 
     .preview{padding:20px;min-height:540px;overflow:auto}
-    .invoice{background:linear-gradient(180deg,#e9f6fb,#f6fbff);color:#071726;padding:18px;border-radius:12px;border:1px solid rgba(2,6,23,0.06);min-width:320px}
+    .invoice{background:linear-gradient(180deg,#e9f6fb,#f6fbff);color:#071726;padding:18px;border-radius:12px;border:1px solid rgba(2,6,23,0.06);min-width:280px}
 
-    .invoice header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+    .invoice header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px}
     .brand{display:flex;gap:12px;align-items:center}
-    .logo{width:66px;height:66px;border-radius:12px;background:linear-gradient(135deg,var(--accent-2),var(--accent));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:white;overflow:hidden;position:relative}
+    .logo{width:66px;height:66px;border-radius:12px;background:linear-gradient(135deg,var(--accent-2),var(--accent));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:white;overflow:hidden;position:relative;flex-shrink:0}
     .logo img{width:100%;height:100%;object-fit:cover;border-radius:12px}
     .companyTitle{font-weight:800}
     .companyMeta{font-size:13px;color:#254254}
@@ -50,199 +51,252 @@
     td.right{text-align:right}
 
     .total{display:flex;justify-content:flex-end;margin-top:14px;font-weight:700}
-    .images-row{display:flex;gap:10px;margin-top:12px}
-    .thumb{width:96px;height:64px;border-radius:8px;background:#eef7fb;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(0,0,0,0.06)}
+    .images-row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+    .thumb{width:96px;height:64px;border-radius:8px;background:#eef7fb;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(0,0,0,0.06);flex-shrink:0}
     .small{font-size:12px;color:#5f7c8a}
 
-    footer.app-actions{display:flex;gap:10px;justify-content:space-between;margin-top:12px}
+    footer.app-actions{display:flex;gap:10px;justify-content:space-between;margin-top:12px;flex-wrap:wrap}
 
     /* Modal para o Link */
-    .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:1000;align-items:center;justify-content:center}
-    .modal-content{background:var(--card);padding:30px;border-radius:20px;max-width:500px;width:90%;border:1px solid rgba(255,255,255,0.1)}
+    .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:1000;align-items:center;justify-content:center;padding:20px}
+    .modal-content{background:var(--card);padding:30px;border-radius:20px;max-width:500px;width:100%;border:1px solid rgba(255,255,255,0.1)}
     .link-display{background:rgba(0,0,0,0.3);padding:15px;border-radius:10px;margin:15px 0;word-break:break-all;border:1px solid var(--accent)}
 
     /* Configuração do Logo */
     .logo-config{background:rgba(255,255,255,0.02);padding:15px;border-radius:10px;margin-bottom:15px;border:1px dashed rgba(255,255,255,0.1)}
     
-    @media(max-width:980px){.wrap{grid-template-columns:1fr}}
+    /* Responsividade */
+    @media (max-width: 1024px) {
+      .wrap{grid-template-columns:1fr;gap:15px}
+      .panel{padding:15px}
+      .preview{padding:15px}
+    }
+    
+    @media (max-width: 768px) {
+      body{padding:10px}
+      .row{flex-direction:column}
+      .invoice header{flex-direction:column;text-align:center}
+      .brand{justify-content:center;text-align:center}
+      footer.app-actions{flex-direction:column}
+      .btn{width:100%;justify-content:center}
+      .preview-actions{flex-direction:column;gap:10px}
+      .preview-actions > div{width:100%}
+    }
+    
+    @media (max-width: 480px) {
+      .panel{padding:12px}
+      .preview{padding:12px}
+      .invoice{padding:12px}
+      .env{flex-direction:column;align-items:flex-start}
+      .env .actions{width:100%;justify-content:space-between}
+      .logo{width:50px;height:50px;font-size:14px}
+    }
+
+    /* Preview actions */
+    .preview-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    
+    /* Cliente View */
+    .client-view{display:none;max-width:800px;margin:0 auto;padding:20px}
+    .client-budget{background:white;color:#333;border-radius:12px;padding:25px;box-shadow:0 10px 30px rgba(0,0,0,0.1)}
+
+    /* Novo Botão */
+    .new-budget-btn{background:linear-gradient(90deg,#f59e0b,#d97706) !important}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="panel">
-      <h1>🔧 Sistema de Orçamento <span class="muted">(m² por ambiente)</span></h1>
-      <p class="muted">Adicione ambientes com largura x comprimento (m). O sistema calcula m², totaliza, gera preview estilizado e envia por WhatsApp.</p>
+  <!-- Modo Edição -->
+  <div id="editorView">
+    <div class="wrap">
+      <div class="panel">
+        <h1>🔧 Sistema de Orçamento <span class="muted">(m² por ambiente)</span></h1>
+        <p class="muted">Adicione ambientes com largura x comprimento (m). O sistema calcula m², totaliza, gera preview estilizado e envia por WhatsApp.</p>
 
-      <!-- CONFIGURAÇÃO DO LOGO -->
-      <div class="logo-config">
-        <label><strong>📷 Logo da Sua Empresa</strong></label>
-        <div style="display:flex;gap:10px;align-items:center;margin-top:8px">
-          <div class="logo">
-            <img id="logoImg" src="" alt="Logo" style="display:none"/>
-            <div id="logoPlaceholder" style="font-size:12px;text-align:center">Seu Logo</div>
+        <!-- CONFIGURAÇÃO DO LOGO -->
+        <div class="logo-config">
+          <label><strong>📷 Logo da Sua Empresa</strong></label>
+          <div style="display:flex;gap:10px;align-items:center;margin-top:8px">
+            <div class="logo">
+              <img id="logoImg" src="" alt="Logo" style="display:none"/>
+              <div id="logoPlaceholder" style="font-size:12px;text-align:center">Seu Logo</div>
+            </div>
+            <div style="flex:1">
+              <label class="btn ghost" style="width:100%;text-align:center;margin-bottom:5px">
+                📁 Escolher Logo
+                <input id="uploadCompanyLogo" type="file" accept="image/*" style="display:none"/>
+              </label>
+              <button id="removeLogo" class="btn danger small" style="width:100%;display:none">
+                🗑️ Remover Logo
+              </button>
+              <div class="muted" style="font-size:11px;margin-top:5px">PNG, JPG até 2MB</div>
+            </div>
           </div>
-          <div style="flex:1">
-            <label class="btn ghost" style="width:100%;text-align:center;margin-bottom:5px">
-              📁 Escolher Logo
-              <input id="uploadCompanyLogo" type="file" accept="image/*" style="display:none"/>
-            </label>
-            <button id="removeLogo" class="btn danger small" style="width:100%;display:none">
-              🗑️ Remover Logo
-            </button>
-            <div class="muted" style="font-size:11px;margin-top:5px">PNG, JPG até 2MB</div>
+        </div>
+
+        <div style="margin-top:8px">
+          <label>Nome da Loja</label>
+          <input id="companyName" type="text" placeholder="Ex: Gesso Lucca - Especialistas" />
+          <div class="row" style="margin-top:8px;">
+            <input id="companyPhone" type="text" placeholder="Telefone da loja" />
+            <input id="companyAddress" type="text" placeholder="Endereço da loja" />
           </div>
         </div>
-      </div>
 
-      <div style="margin-top:8px">
-        <label>Nome da Loja</label>
-        <input id="companyName" type="text" placeholder="Ex: Gesso Lucca - Especialistas" />
-        <div class="row" style="margin-top:8px;">
-          <input id="companyPhone" type="text" placeholder="Telefone da loja" value="(11) 97777-7777" />
-          <input id="companyAddress" type="text" placeholder="Endereço da loja" value="Rua Zambueng, 4362" />
-        </div>
-      </div>
-
-      <div style="margin-top:12px">
-        <label>Dados do Cliente</label>
-        <div class="row" style="margin-top:8px;">
-          <input id="clientName" type="text" placeholder="Nome do cliente" value="Zimkau!" />
-          <input id="clientPhone" type="text" placeholder="Telefone do cliente" value="(11) 93333-3333" />
-        </div>
-        <input id="clientAddress" type="text" placeholder="Endereço do cliente" style="margin-top:8px;" value="Rua Dezesseis, 16" />
-        
-        <!-- CAMPO DE DATA ADICIONADO AQUI -->
         <div style="margin-top:12px">
-          <label>Data do Orçamento</label>
-          <input id="budgetDate" type="date" style="margin-top:8px;" />
+          <label>Dados do Cliente</label>
+          <div class="row" style="margin-top:8px;">
+            <input id="clientName" type="text" placeholder="Nome do cliente" />
+            <input id="clientPhone" type="text" placeholder="Telefone do cliente" />
+          </div>
+          <input id="clientAddress" type="text" placeholder="Endereço do cliente" style="margin-top:8px;" />
+          
+          <div style="margin-top:12px">
+            <label>Data do Orçamento</label>
+            <input id="budgetDate" type="date" style="margin-top:8px;" />
+          </div>
         </div>
-      </div>
 
-      <div style="margin-top:12px">
-        <label>Valor por m² (R$)</label>
-        <input id="unitPrice" type="number" step="0.01" placeholder="Ex: 150.00" value="85.00" />
-      </div>
+        <div style="margin-top:12px">
+          <label>Valor por m² (R$)</label>
+          <input id="unitPrice" type="number" step="0.01" placeholder="Ex: 150.00" />
+        </div>
 
-      <div style="margin-top:12px">
-        <label>Tipo de serviço</label>
-        <select id="serviceType">
-          <option>Instalação de gesso</option>
-          <option>Acabamento simples</option>
-          <option>Piso e azulejo</option>
-          <option>Pintura</option>
-          <option>Reforma completa</option>
-          <option>Outro</option>
-        </select>
-        <input id="serviceNote" type="text" placeholder="Observação sobre o serviço (opcional)" style="margin-top:8px;" />
-      </div>
-
-      <hr style="border:none;border-top:1px dashed rgba(255,255,255,0.04);margin:14px 0" />
-
-      <div>
-        <label><strong>Adicionar Ambiente</strong></label>
-        <div class="row">
-          <select id="envType">
-            <option>Quarto</option>
-            <option>Sala</option>
-            <option>Cozinha</option>
-            <option>Banheiro</option>
-            <option>Corredor</option>
+        <div style="margin-top:12px">
+          <label>Tipo de serviço</label>
+          <select id="serviceType">
+            <option value="">Selecione o tipo de serviço</option>
+            <option>Instalação de gesso</option>
+            <option>Acabamento simples</option>
+            <option>Piso e azulejo</option>
+            <option>Pintura</option>
+            <option>Reforma completa</option>
             <option>Outro</option>
           </select>
-          <input id="envName" type="text" placeholder="Nome (ex: Quarto 1)" />
-        </div>
-        <div class="row" style="margin-top:8px">
-          <input id="envWidth" type="number" step="0.01" placeholder="Largura (m)" />
-          <input id="envLength" type="number" step="0.01" placeholder="Comprimento (m)" />
-        </div>
-        <div style="display:flex;gap:8px;margin-top:10px;align-items:center">
-          <button id="addEnv" class="btn">➕ Adicionar ambiente</button>
-          <button id="clearAll" class="btn ghost">Limpar tudo</button>
+          <input id="serviceNote" type="text" placeholder="Observação sobre o serviço (opcional)" style="margin-top:8px;" />
         </div>
 
-        <div id="envList" class="env-list"></div>
-      </div>
+        <hr style="border:none;border-top:1px dashed rgba(255,255,255,0.04);margin:14px 0" />
 
-    </div>
-
-    <div class="panel preview">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
         <div>
-          <strong>Pré-visualização do Orçamento</strong>
-          <div class="small">Visual moderno — gere PNG para enviar ao cliente ou use Whatsapp direto.</div>
+          <label><strong>Adicionar Ambiente</strong></label>
+          <div class="row">
+            <select id="envType">
+              <option>Quarto</option>
+              <option>Sala</option>
+              <option>Cozinha</option>
+              <option>Banheiro</option>
+              <option>Corredor</option>
+              <option>Outro</option>
+            </select>
+            <input id="envName" type="text" placeholder="Nome (ex: Quarto 1)" />
+          </div>
+          <div class="row" style="margin-top:8px">
+            <input id="envWidth" type="number" step="0.01" placeholder="Largura (m)" />
+            <input id="envLength" type="number" step="0.01" placeholder="Comprimento (m)" />
+          </div>
+          <div style="display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap">
+            <button id="addEnv" class="btn">➕ Adicionar ambiente</button>
+            <button id="clearAll" class="btn ghost">Limpar tudo</button>
+          </div>
+
+          <div id="envList" class="env-list"></div>
         </div>
-        <div style="display:flex;gap:8px">
-          <button id="genPNG" class="btn ghost">⬇️ Gerar PNG</button>
-          <button id="sendWA" class="btn">📲 Enviar por WhatsApp</button>
-          <button id="genLink" class="btn" style="background:linear-gradient(90deg,#10b981,#059669)">🔗 Gerar Link</button>
+
+        <!-- Botão Novo Orçamento -->
+        <div style="margin-top:20px;padding-top:15px;border-top:1px solid rgba(255,255,255,0.1)">
+          <button id="newBudget" class="btn new-budget-btn" style="width:100%">
+            🆕 Novo Orçamento
+          </button>
         </div>
       </div>
 
-      <div id="invoice" class="invoice">
-        <header>
-          <div class="brand">
-            <div class="logo" id="logoArea">
-              <img id="previewLogoImg" src="" alt="logo" style="display:none"/>
-              <div id="previewLogoPlaceholder" style="font-size:12px;text-align:center">Logo</div>
-            </div>
-            <div>
-              <div class="companyTitle" id="companyTitle">Gesso Lucca</div>
-              <div class="companyMeta" id="companyMeta">(11) 97777-7777 • Rua Zambueng, 4362</div>
-            </div>
-          </div>
-          <div style="text-align:right">
-            <div class="small">Orçamento</div>
-            <div id="dateNow" style="font-weight:700">22/11/2025</div>
-          </div>
-        </header>
-
-        <div style="display:flex;justify-content:space-between;gap:20px;align-items:flex-start">
+      <div class="panel preview">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:10px">
           <div>
-            <div class="small">Cliente</div>
-            <div id="clientTitle" style="font-weight:700">Zimkau!</div>
-            <div class="companyMeta" id="clientMeta">(11) 93333-3333 • Rua Dezesseis, 16</div>
+            <strong>Pré-visualização do Orçamento</strong>
+            <div class="small">Visual moderno — gere PNG para enviar ao cliente ou use Whatsapp direto.</div>
           </div>
-
-          <div style="text-align:right">
-            <div class="small">Serviço</div>
-            <div id="serviceTitle" style="font-weight:700">Instalação de gesso</div>
-            <div class="small" id="serviceNotePreview"></div>
+          <div class="preview-actions">
+            <button id="genPNG" class="btn ghost">⬇️ PNG</button>
+            <button id="sendWA" class="btn">📲 WhatsApp</button>
+            <button id="genLink" class="btn success">🔗 Link</button>
           </div>
         </div>
 
-        <table id="itemsTable" aria-live="polite">
-          <thead>
-            <tr><th>Ambiente</th><th style="width:90px">m²</th><th style="width:140px">Valor/m²</th><th style="width:140px">Subtotal (R$)</th></tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+        <div id="invoice" class="invoice">
+          <header>
+            <div class="brand">
+              <div class="logo" id="logoArea">
+                <img id="previewLogoImg" src="" alt="logo" style="display:none"/>
+                <div id="previewLogoPlaceholder" style="font-size:12px;text-align:center">Logo</div>
+              </div>
+              <div>
+                <div class="companyTitle" id="companyTitle">Sua Empresa</div>
+                <div class="companyMeta" id="companyMeta">—</div>
+              </div>
+            </div>
+            <div style="text-align:right">
+              <div class="small">Orçamento</div>
+              <div id="dateNow" style="font-weight:700">—</div>
+            </div>
+          </header>
 
-        <div class="total">
-          <div style="min-width:300px;">
-            <div class="small">Total m²: <span id="totalM2">0</span></div>
-            <div class="small">Valor total (R$): <span id="totalValue">0,00</span></div>
+          <div style="display:flex;justify-content:space-between;gap:20px;align-items:flex-start;flex-wrap:wrap">
+            <div>
+              <div class="small">Cliente</div>
+              <div id="clientTitle" style="font-weight:700">—</div>
+              <div class="companyMeta" id="clientMeta">—</div>
+            </div>
+
+            <div style="text-align:right">
+              <div class="small">Serviço</div>
+              <div id="serviceTitle" style="font-weight:700">—</div>
+              <div class="small" id="serviceNotePreview"></div>
+            </div>
+          </div>
+
+          <table id="itemsTable" aria-live="polite">
+            <thead>
+              <tr><th>Ambiente</th><th style="width:90px">m²</th><th style="width:140px">Valor/m²</th><th style="width:140px">Subtotal (R$)</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+
+          <div class="total">
+            <div style="min-width:300px;">
+              <div class="small">Total m²: <span id="totalM2">0</span></div>
+              <div class="small">Valor total (R$): <span id="totalValue">0,00</span></div>
+            </div>
+          </div>
+
+          <div class="images-row" id="imagesRow"></div>
+
+          <div style="margin-top:12px;font-size:13px;color:#37576b">Observações gerais: <span id="notesPreview">—</span></div>
+          
+          <div style="margin-top:20px;padding-top:10px;border-top:1px dashed #ccc;text-align:center;font-size:12px;color:#5f7c8a">
+            Sistema criado por: Bruno Araujo Bonifacio • Data de emissão: <span id="invoiceDate">—</span>
           </div>
         </div>
 
-        <div class="images-row" id="imagesRow"></div>
-
-        <div style="margin-top:12px;font-size:13px;color:#37576b">Observações gerais: <span id="notesPreview">—</span></div>
-        
-        <!-- DATA NO RODAPÉ DO ORÇAMENTO -->
-        <div style="margin-top:20px;padding-top:10px;border-top:1px dashed #ccc;text-align:center;font-size:12px;color:#5f7c8a">
-       sistema criado por :  (Bruno arujo bonifacio )        Data de emissão: <span id="invoiceDate">22/11/2025 </span>
-        </div>
+        <footer class="app-actions">
+          <div style="display:flex;gap:8px">
+            <label class="btn ghost">🖼️ Imagens do serviço <input id="uploadImage" type="file" accept="image/*" style="display:none" multiple /></label>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button id="copySummary" class="btn ghost">📋 Copiar Texto</button>
+            <button id="downloadJSON" class="btn ghost">💾 Exportar JSON</button>
+          </div>
+        </footer>
       </div>
+    </div>
+  </div>
 
-      <footer class="app-actions">
-        <div style="display:flex;gap:8px">
-          <label class="btn ghost">🖼️ Imagens do serviço <input id="uploadImage" type="file" accept="image/*" style="display:none" multiple /></label>
-        </div>
-        <div style="display:flex;gap:8px">
-          <button id="copySummary" class="btn ghost">📋 Copiar Texto</button>
-          <button id="downloadJSON" class="btn ghost">💾 Exportar JSON</button>
-        </div>
-      </footer>
+  <!-- Visualização do Cliente -->
+  <div id="clientView" class="client-view" style="display:none">
+    <div class="client-budget" id="clientBudget">
+      <!-- O conteúdo será gerado pelo JavaScript -->
+    </div>
+    <div style="text-align:center;margin-top:20px">
+      <button id="backToEdit" class="btn">← Voltar para Edição</button>
     </div>
   </div>
 
@@ -256,8 +310,10 @@
         Carregando...
       </div>
       
-      <div style="display:flex;gap:10px;margin-top:20px">
+      <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
         <button class="btn" onclick="copyGeneratedLink()" style="flex:1">📋 Copiar Link</button>
+        <button class="btn" onclick="openClientView()" style="flex:1;background:linear-gradient(90deg,#8b5cf6,#7c3aed)">👀 Visualizar</button>
+        <button class="btn success" onclick="closeLinkModalAndNewBudget()" style="flex:1">🆕 Novo Orçamento</button>
         <button class="btn ghost" onclick="closeLinkModal()" style="flex:1">Fechar</button>
       </div>
       
@@ -276,21 +332,112 @@
     // FUNÇÃO PARA INICIALIZAR DATA
     function initializeDate() {
       const today = new Date();
-      const formattedDate = today.toISOString().split('T')[0]; // Formato YYYY-MM-DD
-      const displayDate = today.toLocaleDateString('pt-BR'); // Formato DD/MM/AAAA
+      const formattedDate = today.toISOString().split('T')[0];
+      const displayDate = today.toLocaleDateString('pt-BR');
       
-      // Definir data atual no campo
       $('budgetDate').value = formattedDate;
-      
-      // Atualizar display da data
       $('dateNow').textContent = displayDate;
       $('invoiceDate').textContent = displayDate;
     }
 
-    // init
-    initializeDate();
+    // FUNÇÃO PARA LIMPAR CAMPOS DO ORÇAMENTO
+    function clearBudgetFields() {
+      // Limpar dados do cliente
+      $('clientName').value = '';
+      $('clientPhone').value = '';
+      $('clientAddress').value = '';
+      
+      // Limpar serviço
+      $('serviceType').selectedIndex = 0;
+      $('serviceNote').value = '';
+      
+      // Limpar valor por m²
+      $('unitPrice').value = '';
+      
+      // Limpar ambientes
+      model.envs = [];
+      
+      // Limpar imagens
+      model.images = [];
+      
+      // Atualizar data atual
+      initializeDate();
+      
+      // Atualizar interface
+      renderEnvList();
+      syncPreview();
+      
+      // Mostrar mensagem de confirmação
+      showNotification('Campos limpos! Pronto para novo orçamento.', 'success');
+    }
 
-    // Carregar logo salvo do localStorage
+    // FUNÇÃO PARA LIMPAR TUDO (INCLUINDO DADOS DA LOJA)
+    function clearAllData() {
+      if(confirm('Tem certeza que deseja limpar TODOS os dados, incluindo dados da loja?')) {
+        // Limpar dados da loja
+        $('companyName').value = '';
+        $('companyPhone').value = '';
+        $('companyAddress').value = '';
+        
+        // Limpar logo
+        model.logo = null;
+        localStorage.removeItem('companyLogo');
+        updateLogoDisplay();
+        
+        // Limpar dados do orçamento
+        clearBudgetFields();
+        
+        showNotification('Todos os dados foram limpos!', 'success');
+      }
+    }
+
+    // FUNÇÃO PARA MOSTRAR NOTIFICAÇÃO
+    function showNotification(message, type = 'info') {
+      // Criar elemento de notificação
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#10b981' : '#3b82f6'};
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        z-index: 10000;
+        max-width: 300px;
+        animation: slideIn 0.3s ease;
+      `;
+      notification.textContent = message;
+      
+      document.body.appendChild(notification);
+      
+      // Remover após 3 segundos
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 300);
+      }, 3000);
+    }
+
+    // Adicionar animações CSS para notificações
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // FUNÇÕES DO LOGO
     function loadSavedLogo() {
       const savedLogo = localStorage.getItem('companyLogo');
       if (savedLogo) {
@@ -299,21 +446,17 @@
       }
     }
 
-    // Atualizar exibição do logo em todos os lugares
     function updateLogoDisplay() {
       if (model.logo) {
-        // No sistema
         $('logoImg').src = model.logo;
         $('logoImg').style.display = 'block';
         $('logoPlaceholder').style.display = 'none';
         $('removeLogo').style.display = 'block';
         
-        // Na pré-visualização
         $('previewLogoImg').src = model.logo;
         $('previewLogoImg').style.display = 'block';
         $('previewLogoPlaceholder').style.display = 'none';
       } else {
-        // Sem logo - mostrar placeholders
         $('logoImg').style.display = 'none';
         $('logoPlaceholder').style.display = 'block';
         $('removeLogo').style.display = 'none';
@@ -323,84 +466,36 @@
       }
     }
 
-    // Upload do Logo
-    $('uploadCompanyLogo').addEventListener('change', function(ev) {
-      const file = ev.target.files[0];
-      if (!file) return;
-      
-      // Verificar tamanho do arquivo (max 2MB)
-      if (file.size > 2 * 1024 * 1024) {
-        alert('⚠️ Arquivo muito grande! Escolha uma imagem menor que 2MB.');
-        return;
-      }
-      
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        model.logo = e.target.result;
-        
-        // Salvar no localStorage para sessões futuras
-        localStorage.setItem('companyLogo', model.logo);
-        
-        // Atualizar a exibição
-        updateLogoDisplay();
-      };
-      reader.readAsDataURL(file);
-      ev.target.value = '';
-    });
-
-    // Remover Logo
-    $('removeLogo').addEventListener('click', function() {
-      if (confirm('Tem certeza que deseja remover o logo?')) {
-        model.logo = null;
-        localStorage.removeItem('companyLogo');
-        updateLogoDisplay();
-      }
-    });
-
-    // Adicionar alguns ambientes de exemplo
-    setTimeout(() => {
-      model.envs = [
-        {type: "Quarto", name: "Quarto 1", w: 3.5, l: 2.5, service: "Instalação de gesso"},
-        {type: "Sala", name: "Sala", w: 4.3, l: 3.5, service: "Instalação de gesso"},
-        {type: "Cozinha", name: "Cozinha", w: 4.0, l: 4.0, service: "Instalação de gesso"},
-        {type: "Banheiro", name: "Banheiro", w: 2.8, l: 1.6, service: "Instalação de gesso"},
-        {type: "Corredor", name: "Corredor 5", w: 5.0, l: 0.9, service: "Instalação de gesso"}
-      ];
-      renderEnvList(); 
-      syncPreview();
-      loadSavedLogo(); // Carregar logo salvo
-    }, 100);
-
+    // FUNÇÕES PRINCIPAIS
     function renderEnvList(){
       const list = $('envList'); list.innerHTML='';
       model.envs.forEach((e,idx)=>{
         const el = document.createElement('div'); el.className='env';
         el.innerHTML = `
           <div class="meta">
-            <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:5px">
               <strong>${e.name} (${e.type})</strong>
               <div class="small">${(e.w*e.l).toFixed(2)} m²</div>
             </div>
             <small>L:${e.w}m • C:${e.l}m • Serviço: ${e.service||'—'}</small>
           </div>
-          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
-            <button class="btn ghost" onclick="editEnv(${idx})">✏️</button>
-            <button class="btn" onclick="removeEnv(${idx})">🗑️</button>
+          <div class="actions" style="display:flex;gap:6px;align-items:center">
+            <button class="btn ghost small" onclick="editEnv(${idx})">✏️</button>
+            <button class="btn danger small" onclick="removeEnv(${idx})">🗑️</button>
           </div>`;
         list.appendChild(el);
       });
     }
 
     function syncPreview(){
-      $('companyTitle').innerText = $('companyName').value || 'Nome da Loja';
+      $('companyTitle').innerText = $('companyName').value || 'Sua Empresa';
       $('companyMeta').innerText = `${$('companyPhone').value || '—'} • ${$('companyAddress').value || '—'}`;
-      $('clientTitle').innerText = $('clientName').value || 'Nome do cliente';
+      $('clientTitle').innerText = $('clientName').value || '—';
       $('clientMeta').innerText = `${$('clientPhone').value || '—'} • ${$('clientAddress').value || '—'}`;
-      $('serviceTitle').innerText = $('serviceType').value;
+      $('serviceTitle').innerText = $('serviceType').value || '—';
       $('serviceNotePreview').innerText = $('serviceNote').value || '';
       $('notesPreview').innerText = $('serviceNote').value || '—';
 
-      // ATUALIZAR DATA NA PRÉ-VISUALIZAÇÃO
       const selectedDate = new Date($('budgetDate').value);
       const displayDate = selectedDate.toLocaleDateString('pt-BR');
       $('dateNow').textContent = displayDate;
@@ -420,7 +515,6 @@
       $('totalM2').innerText = totalM2.toFixed(2);
       $('totalValue').innerText = fmt(totalVal);
 
-      // images
       const imagesRow = $('imagesRow'); imagesRow.innerHTML='';
       (model.images||[]).forEach((src, i)=>{
         const d = document.createElement('div'); d.className='thumb'; d.innerHTML = `<img src="${src}" style="width:100%;height:100%;object-fit:cover"/>`;
@@ -428,7 +522,36 @@
       });
     }
 
-    // add env
+    // EVENT LISTENERS
+    $('uploadCompanyLogo').addEventListener('change', function(ev) {
+      const file = ev.target.files[0];
+      if (!file) return;
+      
+      if (file.size > 2 * 1024 * 1024) {
+        alert('⚠️ Arquivo muito grande! Escolha uma imagem menor que 2MB.');
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        model.logo = e.target.result;
+        localStorage.setItem('companyLogo', model.logo);
+        updateLogoDisplay();
+        showNotification('Logo adicionado com sucesso!', 'success');
+      };
+      reader.readAsDataURL(file);
+      ev.target.value = '';
+    });
+
+    $('removeLogo').addEventListener('click', function() {
+      if (confirm('Tem certeza que deseja remover o logo?')) {
+        model.logo = null;
+        localStorage.removeItem('companyLogo');
+        updateLogoDisplay();
+        showNotification('Logo removido!', 'success');
+      }
+    });
+
     $('addEnv').addEventListener('click', ()=>{
       const type = $('envType').value;
       const name = $('envName').value || `${type} ${model.envs.length+1}`;
@@ -450,11 +573,12 @@
       model.envs[i] = {...e, name, w, l}; renderEnvList(); syncPreview();
     }
 
-    $('clearAll').addEventListener('click', ()=>{ if(confirm('Limpar todos os dados?')){ model.envs=[]; model.images=[]; $('companyName').value=''; $('clientName').value=''; $('clientPhone').value=''; $('clientAddress').value=''; $('companyPhone').value=''; $('companyAddress').value=''; $('unitPrice').value=''; $('serviceNote').value=''; renderEnvList(); syncPreview(); } });
+    $('clearAll').addEventListener('click', clearAllData);
 
-    ['companyName','companyPhone','companyAddress','clientName','clientPhone','clientAddress','unitPrice','serviceType','serviceNote','budgetDate'].forEach(id=>{ $(id).addEventListener('input',syncPreview); });
+    ['companyName','companyPhone','companyAddress','clientName','clientPhone','clientAddress','unitPrice','serviceType','serviceNote','budgetDate'].forEach(id=>{ 
+      $(id).addEventListener('input',syncPreview); 
+    });
 
-    // images upload
     $('uploadImage').addEventListener('change', (ev)=>{
       const files = Array.from(ev.target.files);
       model.images = model.images || [];
@@ -466,13 +590,11 @@
       ev.target.value='';
     });
 
-    // copy summary
     $('copySummary').addEventListener('click', ()=>{ 
-      const selectedDate = new Date($('budgetDate').value);
-      const displayDate = selectedDate.toLocaleDateString('pt-BR');
-      
       const txt = buildTextSummary();
-      navigator.clipboard.writeText(txt).then(()=>alert('Resumo copiado para a área de transferência')); 
+      navigator.clipboard.writeText(txt).then(()=>{
+        showNotification('Resumo copiado para a área de transferência!', 'success');
+      }); 
     });
     
     $('downloadJSON').addEventListener('click', ()=>{ 
@@ -489,7 +611,286 @@
       a.download='orcamento.json'; 
       a.click(); 
       URL.revokeObjectURL(url); 
+      showNotification('JSON exportado com sucesso!', 'success');
     });
+
+    // WHATSAPP E PNG
+    $('sendWA').addEventListener('click', ()=>{
+      // Validar campos obrigatórios
+      if (!validateBudget()) return;
+      
+      const phone = prompt('Número do WhatsApp destino (ex: 5511999998888) — deixe em branco para abrir WhatsApp Web', $('clientPhone').value||'');
+      const text = buildTextSummary();
+      const url = `https://wa.me/${phone || ''}?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+      
+      // Limpar campos após envio
+      setTimeout(() => {
+        if (confirm('Orçamento enviado! Deseja limpar os campos para um novo orçamento?')) {
+          clearBudgetFields();
+        }
+      }, 1000);
+    });
+
+    $('genPNG').addEventListener('click', async ()=>{
+      // Validar campos obrigatórios
+      if (!validateBudget()) return;
+      
+      if(typeof html2canvas === 'undefined'){
+        const s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+        document.body.appendChild(s);
+        s.onload = () => capture();
+      } else capture();
+      
+      function capture(){
+        const node = document.getElementById('invoice');
+        html2canvas(node, {scale:2}).then(canvas=>{
+          canvas.toBlob(blob=>{
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = 'orcamento.png'; a.click(); URL.revokeObjectURL(url);
+            showNotification('PNG gerado com sucesso!', 'success');
+            
+            // Limpar campos após download
+            setTimeout(() => {
+              if (confirm('PNG salvo! Deseja limpar os campos para um novo orçamento?')) {
+                clearBudgetFields();
+              }
+            }, 1000);
+          }, 'image/png');
+        });
+      }
+    });
+
+    // VALIDAÇÃO DO ORÇAMENTO
+    function validateBudget() {
+      if (!$('companyName').value) {
+        alert('Por favor, preencha o nome da loja.');
+        $('companyName').focus();
+        return false;
+      }
+      if (!$('clientName').value) {
+        alert('Por favor, preencha o nome do cliente.');
+        $('clientName').focus();
+        return false;
+      }
+      if (!parseFloat($('unitPrice').value)) {
+        alert('Por favor, preencha o valor por m².');
+        $('unitPrice').focus();
+        return false;
+      }
+      if (model.envs.length === 0) {
+        alert('Por favor, adicione pelo menos um ambiente.');
+        return false;
+      }
+      return true;
+    }
+
+    // SISTEMA DE LINK E VISUALIZAÇÃO DO CLIENTE
+    function generateShareableLink() {
+      // Validar campos obrigatórios
+      if (!validateBudget()) return;
+      
+      const selectedDate = new Date($('budgetDate').value);
+      const displayDate = selectedDate.toLocaleDateString('pt-BR');
+      
+      const budgetData = {
+        company: {
+          name: $('companyName').value,
+          phone: $('companyPhone').value,
+          address: $('companyAddress').value
+        },
+        client: {
+          name: $('clientName').value,
+          phone: $('clientPhone').value,
+          address: $('clientAddress').value
+        },
+        service: {
+          type: $('serviceType').value,
+          note: $('serviceNote').value
+        },
+        unitPrice: parseFloat($('unitPrice').value) || 0,
+        envs: model.envs,
+        logo: model.logo,
+        date: displayDate
+      };
+
+      const jsonString = JSON.stringify(budgetData);
+      const base64Data = btoa(unescape(encodeURIComponent(jsonString)));
+      const baseUrl = window.location.href.split('?')[0];
+      const shareableUrl = `${baseUrl}?view=client&data=${base64Data}`;
+      
+      $('generatedLink').textContent = shareableUrl;
+      showLinkModal();
+      
+      // Salvar no localStorage para acesso rápido
+      localStorage.setItem('lastBudgetLink', shareableUrl);
+    }
+
+    function showClientView() {
+      $('editorView').style.display = 'none';
+      $('clientView').style.display = 'block';
+      renderClientView();
+    }
+
+    function renderClientView() {
+      const clientBudget = $('clientBudget');
+      const unit = parseFloat($('unitPrice').value) || 0;
+      let totalM2 = 0, totalVal = 0;
+      
+      let itemsHTML = '';
+      model.envs.forEach((e) => {
+        const m2 = (Number(e.w||0)*Number(e.l||0));
+        const sub = m2*unit;
+        totalM2 += m2; totalVal += sub;
+        itemsHTML += `
+          <tr>
+            <td>${e.name} — ${e.type}</td>
+            <td>${m2.toFixed(2)}</td>
+            <td>R$ ${fmt(unit)}</td>
+            <td>R$ ${fmt(sub)}</td>
+          </tr>
+        `;
+      });
+
+      const selectedDate = new Date($('budgetDate').value);
+      const displayDate = selectedDate.toLocaleDateString('pt-BR');
+
+      clientBudget.innerHTML = `
+        <div style="text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:2px solid #f0f0f0">
+          ${model.logo ? `<img src="${model.logo}" alt="Logo" style="height:80px;margin-bottom:15px;border-radius:8px">` : ''}
+          <h1 style="color:#2c5aa0;margin:0">${$('companyName').value || 'Sua Empresa'}</h1>
+          <p style="color:#666;margin:5px 0">${$('companyPhone').value || '—'} • ${$('companyAddress').value || '—'}</p>
+          <h2 style="color:#333;margin:10px 0">ORÇAMENTO</h2>
+          <p style="color:#666;margin:0"><strong>Data:</strong> ${displayDate}</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:30px">
+          <div>
+            <h3 style="color:#2c5aa0;margin-bottom:10px">👤 Cliente</h3>
+            <p style="margin:5px 0"><strong>${$('clientName').value || '—'}</strong></p>
+            <p style="margin:5px 0;color:#666">${$('clientPhone').value || '—'}</p>
+            <p style="margin:5px 0;color:#666">${$('clientAddress').value || '—'}</p>
+          </div>
+          <div>
+            <h3 style="color:#2c5aa0;margin-bottom:10px">🔧 Serviço</h3>
+            <p style="margin:5px 0"><strong>${$('serviceType').value}</strong></p>
+            <p style="margin:5px 0;color:#666">${$('serviceNote').value || '—'}</p>
+          </div>
+        </div>
+
+        <table style="width:100%;border-collapse:collapse;margin:20px 0">
+          <thead>
+            <tr style="background:#2c5aa0;color:white">
+              <th style="padding:12px;text-align:left">Ambiente</th>
+              <th style="padding:12px;text-align:center">m²</th>
+              <th style="padding:12px;text-align:center">Valor/m²</th>
+              <th style="padding:12px;text-align:center">Subtotal (R$)</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${itemsHTML}
+          </tbody>
+        </table>
+
+        <div style="background:#f8f9fa;padding:20px;border-radius:8px;margin-top:20px">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap">
+            <div>
+              <h3 style="margin:0;color:#2c5aa0">Total do Orçamento</h3>
+              <p style="margin:5px 0;color:#666">${totalM2.toFixed(2)} m² totais</p>
+            </div>
+            <div style="text-align:right">
+              <h2 style="margin:0;color:#27ae60;font-size:28px">R$ ${fmt(totalVal)}</h2>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:30px;padding-top:20px;border-top:1px dashed #ccc;text-align:center">
+          <p style="color:#666;margin:0">Este orçamento foi gerado em ${displayDate}</p>
+          <p style="color:#999;font-size:12px;margin:10px 0">Sistema desenvolvido por Bruno Araujo Bonifacio</p>
+        </div>
+      `;
+    }
+
+    function showLinkModal() {
+      $('linkModal').style.display = 'flex';
+    }
+    
+    function closeLinkModal() {
+      $('linkModal').style.display = 'none';
+    }
+
+    function closeLinkModalAndNewBudget() {
+      closeLinkModal();
+      setTimeout(() => {
+        clearBudgetFields();
+      }, 300);
+    }
+    
+    function copyGeneratedLink() {
+      const linkText = $('generatedLink').textContent;
+      navigator.clipboard.writeText(linkText).then(() => {
+        showNotification('✅ Link copiado para a área de transferência!', 'success');
+      });
+    }
+
+    function openClientView() {
+      closeLinkModal();
+      showClientView();
+    }
+
+    // VERIFICAR PARÂMETROS DA URL
+    function checkViewMode() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const viewMode = urlParams.get('view');
+      const dataParam = urlParams.get('data');
+      
+      if (viewMode === 'client' && dataParam) {
+        try {
+          const jsonString = decodeURIComponent(escape(atob(dataParam)));
+          const budgetData = JSON.parse(jsonString);
+          loadBudgetData(budgetData);
+          showClientView();
+          return true;
+        } catch (e) {
+          console.error('Erro ao carregar dados do orçamento:', e);
+        }
+      }
+      return false;
+    }
+
+    function loadBudgetData(data) {
+      if (data.company) {
+        $('companyName').value = data.company.name || '';
+        $('companyPhone').value = data.company.phone || '';
+        $('companyAddress').value = data.company.address || '';
+      }
+      if (data.client) {
+        $('clientName').value = data.client.name || '';
+        $('clientPhone').value = data.client.phone || '';
+        $('clientAddress').value = data.client.address || '';
+      }
+      if (data.service) {
+        $('serviceType').value = data.service.type || '';
+        $('serviceNote').value = data.service.note || '';
+      }
+      if (data.unitPrice) $('unitPrice').value = data.unitPrice;
+      if (data.envs) model.envs = data.envs;
+      if (data.logo) {
+        model.logo = data.logo;
+        updateLogoDisplay();
+      }
+      if (data.date) {
+        const parts = data.date.split('/');
+        if (parts.length === 3) {
+          const formattedDate = `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
+          $('budgetDate').value = formattedDate;
+        }
+      }
+      
+      renderEnvList();
+      syncPreview();
+    }
 
     function buildTextSummary(){
       const unit = Number($('unitPrice').value||0);
@@ -515,236 +916,29 @@
       return lines.join('\n');
     }
 
-    // WhatsApp
-    $('sendWA').addEventListener('click', ()=>{
-      const phone = prompt('Número do WhatsApp destino (ex: 5511999998888) — deixe em branco para abrir WhatsApp Web', $('clientPhone').value||'');
-      const text = buildTextSummary();
-      const url = `https://wa.me/${phone || ''}?text=${encodeURIComponent(text)}`;
-      window.open(url, '_blank');
-    });
-
-    // Generate PNG
-    $('genPNG').addEventListener('click', async ()=>{
-      if(typeof html2canvas === 'undefined'){
-        const s = document.createElement('script');
-        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
-        document.body.appendChild(s);
-        s.onload = () => capture();
-      } else capture();
-      function capture(){
-        const node = document.getElementById('invoice');
-        html2canvas(node, {scale:2}).then(canvas=>{
-          canvas.toBlob(blob=>{
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a'); a.href = url; a.download = 'orcamento.png'; a.click(); URL.revokeObjectURL(url);
-          }, 'image/png');
-        });
-      }
-    });
-
-    // ========== FUNCIONALIDADE: GERAR LINK ==========
-    
-    // Modal functions
-    function showLinkModal() {
-      $('linkModal').style.display = 'flex';
-    }
-    
-    function closeLinkModal() {
-      $('linkModal').style.display = 'none';
-    }
-    
-    function copyGeneratedLink() {
-      const linkText = $('generatedLink').textContent;
-      navigator.clipboard.writeText(linkText).then(() => {
-        alert('✅ Link copiado para a área de transferência!');
-      });
-    }
-
-    // Gerar Link do Orçamento
+    // INICIALIZAÇÃO
     $('genLink').addEventListener('click', generateShareableLink);
+    $('newBudget').addEventListener('click', clearBudgetFields);
+    $('backToEdit').addEventListener('click', () => {
+      $('clientView').style.display = 'none';
+      $('editorView').style.display = 'block';
+    });
 
-    function generateShareableLink() {
-      const selectedDate = new Date($('budgetDate').value);
-      const displayDate = selectedDate.toLocaleDateString('pt-BR');
-      
-      // Coletar todos os dados do orçamento
-      const budgetData = {
-        company: {
-          name: $('companyName').value,
-          phone: $('companyPhone').value,
-          address: $('companyAddress').value
-        },
-        client: {
-          name: $('clientName').value,
-          phone: $('clientPhone').value,
-          address: $('clientAddress').value
-        },
-        service: {
-          type: $('serviceType').value,
-          note: $('serviceNote').value
-        },
-        unitPrice: parseFloat($('unitPrice').value) || 0,
-        envs: model.envs,
-        logo: model.logo,
-        date: displayDate // USAR A DATA SELECIONADA
-      };
-
-      // Codificar os dados em base64 para URL
-      const jsonString = JSON.stringify(budgetData);
-      const base64Data = btoa(unescape(encodeURIComponent(jsonString)));
-      
-      // Gerar URL (em produção, isso seria seu domínio no Render/Vercel)
-      const baseUrl = window.location.href.split('?')[0]; // Remove parâmetros existentes
-      const shareableUrl = `${baseUrl}?view=budget&data=${base64Data}`;
-      
-      // Mostrar o link no modal
-      $('generatedLink').textContent = shareableUrl;
-      showLinkModal();
-    }
-
-    // Verificar se deve mostrar a visualização do orçamento
-    function checkViewMode() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const viewMode = urlParams.get('view');
-      const dataParam = urlParams.get('data');
-      
-      if (viewMode === 'budget' && dataParam) {
-        showBudgetView(dataParam);
-        return true;
-      }
-      return false;
-    }
-
-    // Mostrar visualização do orçamento (para o cliente)
-    function showBudgetView(base64Data) {
-      try {
-        // Decodificar dados
-        const jsonString = decodeURIComponent(escape(atob(base64Data)));
-        const budgetData = JSON.parse(jsonString);
-        
-        // Esconder o sistema de edição
-        document.querySelector('.wrap').style.display = 'none';
-        
-        // Criar visualização para o cliente
-        createClientView(budgetData);
-        
-      } catch (e) {
-        document.body.innerHTML = '<div style="padding: 20px; text-align: center; color: white;">Erro ao carregar o orçamento</div>';
-      }
-    }
-
-    function createClientView(data) {
-      // Calcular totais
-      let totalM2 = 0;
-      let totalValue = 0;
-      data.envs.forEach(env => {
-        const m2 = env.w * env.l;
-        totalM2 += m2;
-        totalValue += m2 * data.unitPrice;
-      });
-
-      // Criar HTML da visualização do cliente
-      document.body.innerHTML = `
-        <div style="max-width: 800px; margin: 0 auto; padding: 20px; background: white; min-height: 100vh;">
-          <header style="text-align: center; margin-bottom: 30px; padding: 20px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border-radius: 10px;">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px;">
-              ${data.logo ? 
-                `<img src="${data.logo}" alt="Logo" style="width: 80px; height: 80px; border-radius: 10px; border: 3px solid white;">` : 
-                `<div style="width: 80px; height: 80px; border-radius: 10px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; border: 3px solid white;">
-                  <span style="font-size: 12px; text-align: center;">Logo</span>
-                </div>`
-              }
-              <div>
-                <h1 style="margin: 0; font-size: 24px;">${data.company.name}</h1>
-                <p style="margin: 5px 0 0 0; opacity: 0.9;">${data.company.phone} • ${data.company.address}</p>
-              </div>
-            </div>
-            <h2 style="margin: 10px 0 5px 0;">📋 Orçamento</h2>
-            <p style="margin: 0;"><strong>${data.date}</strong></p>
-          </header>
-          
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
-            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
-              <h3 style="margin-top: 0;">👤 Cliente</h3>
-              <p><strong>${data.client.name}</strong></p>
-              <p>${data.client.phone}</p>
-              <p>${data.client.address}</p>
-            </div>
-            
-            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
-              <h3 style="margin-top: 0;">🔧 Serviço</h3>
-              <p><strong>${data.service.type}</strong></p>
-              ${data.service.note ? `<p>${data.service.note}</p>` : ''}
-            </div>
-          </div>
-          
-          <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-            <thead>
-              <tr style="background: #2c3e50; color: white;">
-                <th style="padding: 12px; text-align: left;">Ambiente</th>
-                <th style="padding: 12px; text-align: center;">m²</th>
-                <th style="padding: 12px; text-align: center;">Valor/m²</th>
-                <th style="padding: 12px; text-align: center;">Subtotal</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${data.envs.map(env => {
-                const m2 = (env.w * env.l).toFixed(2);
-                const subtotal = (m2 * data.unitPrice).toFixed(2);
-                return `
-                  <tr style="border-bottom: 1px solid #eee;">
-                    <td style="padding: 12px;">${getEmoji(env.type)} ${env.name}</td>
-                    <td style="padding: 12px; text-align: center;">${m2}</td>
-                    <td style="padding: 12px; text-align: center;">R$ ${data.unitPrice.toFixed(2)}</td>
-                    <td style="padding: 12px; text-align: center;">R$ ${subtotal}</td>
-                  </tr>
-                `;
-              }).join('')}
-            </tbody>
-          </table>
-          
-          <div style="margin-top: 30px; padding: 20px; background: linear-gradient(135deg, #27ae60, #2ecc71); color: white; border-radius: 8px; text-align: center;">
-            <h2 style="margin: 0 0 10px 0;">📊 Total: ${totalM2.toFixed(2)} m²</h2>
-            <h1 style="margin: 0;">💎 Valor Total: R$ ${totalValue.toFixed(2)}</h1>
-          </div>
-          
-          <!-- DATA NO RODAPÉ DO CLIENTE -->
-          <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed #ccc; text-align: center; font-size: 12px; color: #5f7c8a">
-            Data de emissão: <strong>${data.date}</strong>
-          </div>
-          
-          <div style="margin-top: 30px; text-align: center;">
-            <a href="https://wa.me/55${data.company.phone.replace(/\D/g, '')}?text=Olá! Gostaria de conversar sobre o orçamento" 
-               style="display: inline-block; background: #25D366; color: white; padding: 15px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 10px;">
-              💬 Falar no WhatsApp
-            </a>
-            <button onclick="window.print()" style="background: #3498db; color: white; border: none; padding: 15px 25px; border-radius: 8px; font-weight: bold; margin: 10px; cursor: pointer;">
-              🖨️ Imprimir Orçamento
-            </button>
-          </div>
-        </div>
-      `;
-    }
-
-    function getEmoji(type) {
-      const emojis = {
-        'Quarto': '🛏️',
-        'Sala': '🛋️',
-        'Cozinha': '🍳',
-        'Banheiro': '🚽',
-        'Corredor': '🚶'
-      };
-      return emojis[type] || '🏠';
-    }
-
-    // Inicializar
-    if (!checkViewMode()) {
-      // Modo normal de edição
+    // Inicializar com campos vazios
+    setTimeout(() => {
+      // Não carregar dados de exemplo - começar vazio
+      model.envs = [];
       renderEnvList(); 
       syncPreview();
-      loadSavedLogo(); // Carregar logo salvo ao iniciar
-      setInterval(syncPreview, 700);
-    }
+      loadSavedLogo();
+      initializeDate();
+      
+      if (!checkViewMode()) {
+        // Modo normal - já inicializamos vazio
+      }
+    }, 100);
+
+    setInterval(syncPreview, 700);
   </script>
 </body>
 </html>
