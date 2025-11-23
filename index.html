@@ -360,7 +360,8 @@
         serviceType: $('serviceType').value,
         serviceNote: $('serviceNote').value,
         envs: model.envs,
-        images: model.images
+        images: model.images,
+        logo: model.logo
       };
       localStorage.setItem('currentBudget', JSON.stringify(budgetData));
     }
@@ -383,6 +384,7 @@
         
         model.envs = budgetData.envs || [];
         model.images = budgetData.images || [];
+        model.logo = budgetData.logo || null;
         
         return true;
       }
@@ -971,7 +973,7 @@
         try {
           const jsonString = decodeURIComponent(escape(atob(dataParam)));
           const budgetData = JSON.parse(jsonString);
-          loadBudgetData(budgetData);
+          loadBudgetDataFromURL(budgetData);
           showClientView();
           return true;
         } catch (e) {
@@ -981,7 +983,7 @@
       return false;
     }
 
-    function loadBudgetData(data) {
+    function loadBudgetDataFromURL(data) {
       if (data.company) {
         $('companyName').value = data.company.name || '';
         $('companyPhone').value = data.company.phone || '';
