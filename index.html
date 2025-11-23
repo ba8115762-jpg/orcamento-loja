@@ -346,19 +346,106 @@
     const $ = id => document.getElementById(id);
     const fmt = v => Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 
-    // FUNÇÃO PARA INICIALIZAR DATA
+    // FUNÇÃO PARA INICIALIZAR DATA - CORRIGIDA
     function initializeDate() {
       const today = new Date();
-      const formattedDate = today.toISOString().split('T')[0];
-      const displayDate = today.toLocaleDateString('pt-BR');
       
-      $('budgetDate').value = formattedDate;
+      // CORREÇÃO: Ajusta o fuso horário para o Brasil
+      const timezoneOffset = today.getTimezoneOffset() * 60000; // offset em milissegundos
+      const localDate = new Date(today.getTime() - timezoneOffset);
+      const formattedDate = localDate.toISOString().split('T')[0];
+      
+      // Só define a data se não houver uma data já selecionada
+      if (!$('budgetDate').value) {
+        $('budgetDate').value = formattedDate;
+      }
+      
+      // Atualiza a exibição com a data atual do campo
+      updateDateDisplay();
+    }
+
+    // FUNÇÃO PARA ATUALIZAR A EXIBIÇÃO DA DATA - CORRIGIDA
+    function updateDateDisplay() {
+      const selectedDate = new Date($('budgetDate').value);
+      
+      // CORREÇÃO: Ajusta o fuso horário para exibição correta
+      const timezoneOffset = selectedDate.getTimezoneOffset() * 60000;
+      const localDate = new Date(selectedDate.getTime() + timezoneOffset);
+      
+      const displayDate = localDate.toLocaleDateString('pt-BR');
       $('dateNow').textContent = displayDate;
       $('invoiceDate').textContent = displayDate;
     }
 
-    // FUNÇÃO PARA LIMPAR CAMPOS DO ORÇAMENTO
+    // FUNÇÃO PARA LIMPAR CAMPOS DO ORÇAMENTO (APENAS QUANDO SOLICITADO)
     function clearBudgetFields() {
+      if(confirm('Tem certeza que deseja limpar todos os dados do orçamento atual? Isso não afetará os dados da loja.')) {
+        // Limpar dados do cliente
+        $('clientName').value = '';
+        $('clientPhone').value = '';
+        $('clientAddress').value = '';
+        
+        // Limpar serviço
+        $('serviceType').selectedIndex = 0;
+        $('serviceNote').value = '';
+        
+        // Limpar valor por m²
+        $('unitPrice').value = '';
+        
+        // Limpar ambientes
+        model.envs = [];
+        
+        // Limpar imagens
+        model.images = [];
+        
+        // Atualizar data atual
+        initializeDate();
+        
+        // Atualizar interface
+        renderEnvList();
+        syncPreview();
+        
+        // Mostrar mensagem de confirmação
+        showNotification('Campos limpos! Pronto para novo orçamento.', 'success');
+      }
+    }
+
+    // FUNÇÃO PARA LIMPAR TUDO (INCLUINDO DADOS DA LOJA)
+    function clearAllData() {
+      if(confirm('Tem certeza que deseja limpar TODOS os dados, incluindo dados da loja?')) {
+        // Limpar dados da loja
+        $('companyName').value = '';
+        $('companyPhone').value = '';
+        $('companyAddress').value = '';
+        
+        // Limpar logo
+        model.logo = null;
+        localStorage.removeItem('companyLogo');
+        updateLogoDisplay();
+        
+        // Limpar dados do orçamento
+        $('clientName').value = '';
+        $('clientPhone').value = '';
+        $('clientAddress').value = '';
+        $('serviceType').selectedIndex = 0;
+        $('serviceNote').value = '';
+        $('unitPrice').value = '';
+        model.envs = [];
+        model.images = [];
+        
+        // Atualizar data
+        initializeDate();
+        
+        // Atualizar interface
+        renderEnvList();
+        syncPreview();
+        
+        showNotification('Todos os dados foram limpos!', 'success');
+      }
+    }
+
+    // FUNÇÃO PARA LIMPAR APÓS ENVIO/DOWNLOAD (SEM CONFIRMAÇÃO)
+    function clearAfterAction() {
       // Limpar dados do cliente
       $('clientName').value = '';
       $('clientPhone').value = '';
@@ -383,29 +470,6 @@
       // Atualizar interface
       renderEnvList();
       syncPreview();
-      
-      // Mostrar mensagem de confirmação
-      showNotification('Campos limpos! Pronto para novo orçamento.', 'success');
-    }
-
-    // FUNÇÃO PARA LIMPAR TUDO (INCLUINDO DADOS DA LOJA)
-    function clearAllData() {
-      if(confirm('Tem certeza que deseja limpar TODOS os dados, incluindo dados da loja?')) {
-        // Limpar dados da loja
-        $('companyName').value = '';
-        $('companyPhone').value = '';
-        $('companyAddress').value = '';
-        
-        // Limpar logo
-        model.logo = null;
-        localStorage.removeItem('companyLogo');
-        updateLogoDisplay();
-        
-        // Limpar dados do orçamento
-        clearBudgetFields();
-        
-        showNotification('Todos os dados foram limpos!', 'success');
-      }
     }
 
     // FUNÇÃO PARA MOSTRAR NOTIFICAÇÃO
@@ -513,10 +577,8 @@
       $('serviceNotePreview').innerText = $('serviceNote').value || '';
       $('notesPreview').innerText = $('serviceNote').value || '—';
 
-      const selectedDate = new Date($('budgetDate').value);
-      const displayDate = selectedDate.toLocaleDateString('pt-BR');
-      $('dateNow').textContent = displayDate;
-      $('invoiceDate').textContent = displayDate;
+      // CORREÇÃO: Usa a função atualizada para exibir a data
+      updateDateDisplay();
 
       const tbody = $('itemsTable').querySelector('tbody'); tbody.innerHTML='';
       const unit = parseFloat($('unitPrice').value) || 0;
@@ -627,7 +689,7 @@
       // Limpar campos após envio
       setTimeout(() => {
         if (confirm('Orçamento enviado! Deseja limpar os campos para um novo orçamento?')) {
-          clearBudgetFields();
+          clearAfterAction();
         }
       }, 1000);
     });
@@ -654,7 +716,7 @@
             // Limpar campos após download
             setTimeout(() => {
               if (confirm('PNG salvo! Deseja limpar os campos para um novo orçamento?')) {
-                clearBudgetFields();
+                clearAfterAction();
               }
             }, 1000);
           }, 'image/png');
@@ -691,8 +753,9 @@
       // Validar campos obrigatórios
       if (!validateBudget()) return;
       
-      const selectedDate = new Date($('budgetDate').value);
-      const displayDate = selectedDate.toLocaleDateString('pt-BR');
+      // CORREÇÃO: Usa a data formatada corretamente
+      updateDateDisplay();
+      const displayDate = $('invoiceDate').textContent;
       
       const budgetData = {
         company: {
@@ -753,8 +816,8 @@
         `;
       });
 
-      const selectedDate = new Date($('budgetDate').value);
-      const displayDate = selectedDate.toLocaleDateString('pt-BR');
+      // CORREÇÃO: Usa a data formatada corretamente
+      const displayDate = $('invoiceDate').textContent;
 
       clientBudget.innerHTML = `
         <div style="text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:2px solid #f0f0f0">
@@ -823,7 +886,7 @@
     function closeLinkModalAndNewBudget() {
       closeLinkModal();
       setTimeout(() => {
-        clearBudgetFields();
+        clearAfterAction();
       }, 300);
     }
     
@@ -881,11 +944,8 @@
         updateLogoDisplay();
       }
       if (data.date) {
-        const parts = data.date.split('/');
-        if (parts.length === 3) {
-          const formattedDate = `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
-          $('budgetDate').value = formattedDate;
-        }
+        // CORREÇÃO: Carrega a data do orçamento salvo
+        $('budgetDate').value = data.date;
       }
       
       renderEnvList();
@@ -894,8 +954,8 @@
 
     function buildTextSummary(){
       const unit = Number($('unitPrice').value||0);
-      const selectedDate = new Date($('budgetDate').value);
-      const displayDate = selectedDate.toLocaleDateString('pt-BR');
+      // CORREÇÃO: Usa a data formatada corretamente
+      const displayDate = $('invoiceDate').textContent;
       
       let lines = [];
       lines.push(`${$('companyName').value || 'Loja'} — Orçamento`);
@@ -924,17 +984,21 @@
       $('editorView').style.display = 'block';
     });
 
-    // Inicializar com campos vazios
+    // Inicializar sem limpar dados automaticamente
     setTimeout(() => {
-      // Não carregar dados de exemplo - começar vazio
-      model.envs = [];
+      // Inicia com campos vazios apenas na primeira vez
+      if (!localStorage.getItem('appInitialized')) {
+        model.envs = [];
+        localStorage.setItem('appInitialized', 'true');
+      }
+      
       renderEnvList(); 
       syncPreview();
       loadSavedLogo();
       initializeDate();
       
       if (!checkViewMode()) {
-        // Modo normal - já inicializamos vazio
+        // Modo normal - mantém os dados existentes
       }
     }, 100);
 
