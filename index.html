@@ -346,6 +346,53 @@
     const $ = id => document.getElementById(id);
     const fmt = v => Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 
+    // FUNÇÕES PARA SALVAR E CARREGAR DADOS
+    function saveBudgetData() {
+      const budgetData = {
+        companyName: $('companyName').value,
+        companyPhone: $('companyPhone').value,
+        companyAddress: $('companyAddress').value,
+        clientName: $('clientName').value,
+        clientPhone: $('clientPhone').value,
+        clientAddress: $('clientAddress').value,
+        budgetDate: $('budgetDate').value,
+        unitPrice: $('unitPrice').value,
+        serviceType: $('serviceType').value,
+        serviceNote: $('serviceNote').value,
+        envs: model.envs,
+        images: model.images
+      };
+      localStorage.setItem('currentBudget', JSON.stringify(budgetData));
+    }
+
+    function loadBudgetData() {
+      const saved = localStorage.getItem('currentBudget');
+      if (saved) {
+        const budgetData = JSON.parse(saved);
+        
+        $('companyName').value = budgetData.companyName || '';
+        $('companyPhone').value = budgetData.companyPhone || '';
+        $('companyAddress').value = budgetData.companyAddress || '';
+        $('clientName').value = budgetData.clientName || '';
+        $('clientPhone').value = budgetData.clientPhone || '';
+        $('clientAddress').value = budgetData.clientAddress || '';
+        $('budgetDate').value = budgetData.budgetDate || '';
+        $('unitPrice').value = budgetData.unitPrice || '';
+        $('serviceType').value = budgetData.serviceType || '';
+        $('serviceNote').value = budgetData.serviceNote || '';
+        
+        model.envs = budgetData.envs || [];
+        model.images = budgetData.images || [];
+        
+        return true;
+      }
+      return false;
+    }
+
+    function clearSavedBudget() {
+      localStorage.removeItem('currentBudget');
+    }
+
     // FUNÇÃO PARA INICIALIZAR DATA - CORRIGIDA
     function initializeDate() {
       const today = new Date();
@@ -398,6 +445,9 @@
         // Limpar imagens
         model.images = [];
         
+        // Limpar dados salvos
+        clearSavedBudget();
+        
         // Atualizar data atual
         initializeDate();
         
@@ -433,6 +483,9 @@
         model.envs = [];
         model.images = [];
         
+        // Limpar dados salvos
+        clearSavedBudget();
+        
         // Atualizar data
         initializeDate();
         
@@ -463,6 +516,9 @@
       
       // Limpar imagens
       model.images = [];
+      
+      // Limpar dados salvos
+      clearSavedBudget();
       
       // Atualizar data atual
       initializeDate();
@@ -599,6 +655,9 @@
         const d = document.createElement('div'); d.className='thumb'; d.innerHTML = `<img src="${src}" style="width:100%;height:100%;object-fit:cover"/>`;
         imagesRow.appendChild(d);
       });
+
+      // Salva os dados sempre que a prévia é atualizada
+      saveBudgetData();
     }
 
     // EVENT LISTENERS
@@ -984,12 +1043,14 @@
       $('editorView').style.display = 'block';
     });
 
-    // Inicializar sem limpar dados automaticamente
+    // Inicializar carregando dados salvos
     setTimeout(() => {
-      // Inicia com campos vazios apenas na primeira vez
-      if (!localStorage.getItem('appInitialized')) {
+      // Tenta carregar dados salvos primeiro
+      const hasSavedData = loadBudgetData();
+      
+      // Se não há dados salvos, inicializa vazio
+      if (!hasSavedData) {
         model.envs = [];
-        localStorage.setItem('appInitialized', 'true');
       }
       
       renderEnvList(); 
@@ -1002,7 +1063,10 @@
       }
     }, 100);
 
-    setInterval(syncPreview, 700);
+    // Salva os dados automaticamente a cada 2 segundos
+    setInterval(() => {
+      saveBudgetData();
+    }, 2000);
   </script>
 </body>
 </html>
