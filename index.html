@@ -65,6 +65,24 @@
     /* Configuração do Logo */
     .logo-config{background:rgba(255,255,255,0.02);padding:15px;border-radius:10px;margin-bottom:15px;border:1px dashed rgba(255,255,255,0.1)}
     
+    /* CORREÇÃO PARA OS SELECTS - TEXTO VISÍVEL */
+    select {
+        color: #e6eef8 !important;
+        background: var(--panel) !important;
+    }
+
+    select option {
+        background: var(--panel) !important;
+        color: #e6eef8 !important;
+        padding: 10px;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    select:focus {
+        background: var(--panel) !important;
+        color: #e6eef8 !important;
+    }
+
     /* Responsividade */
     @media (max-width: 1024px) {
       .wrap{grid-template-columns:1fr;gap:15px}
@@ -283,7 +301,6 @@
           </div>
           <div style="display:flex;gap:8px">
             <button id="copySummary" class="btn ghost">📋 Copiar Texto</button>
-            <button id="downloadJSON" class="btn ghost">💾 Exportar JSON</button>
           </div>
         </footer>
       </div>
@@ -595,23 +612,6 @@
       navigator.clipboard.writeText(txt).then(()=>{
         showNotification('Resumo copiado para a área de transferência!', 'success');
       }); 
-    });
-    
-    $('downloadJSON').addEventListener('click', ()=>{ 
-      const data = JSON.stringify({
-        company: $('companyName').value, 
-        client: $('clientName').value, 
-        date: new Date($('budgetDate').value).toLocaleDateString('pt-BR'),
-        model
-      }, null, 2); 
-      const blob = new Blob([data],{type:'application/json'}); 
-      const url = URL.createObjectURL(blob); 
-      const a = document.createElement('a'); 
-      a.href=url; 
-      a.download='orcamento.json'; 
-      a.click(); 
-      URL.revokeObjectURL(url); 
-      showNotification('JSON exportado com sucesso!', 'success');
     });
 
     // WHATSAPP E PNG
